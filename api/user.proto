@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package api;
+
+import "google/api/annotations.proto";
+
+option go_package = "./;out";
+
+message UserInfo {
+    uint64 id = 1;
+    string account = 2;
+    string name = 3;
+    string avatar = 4;
+}
+
+
+message UserInfoRequest {
+    uint64 id = 1;
+}
+
+service user {
+    rpc GetUserInfo(UserInfoRequest) returns(UserInfo) {
+        option (google.api.http) = {
+            get: "/user/info"
+        };
+    };
+}
