@@ -9,7 +9,7 @@ var registryTemp = `
 {{$sName := .ServiceName}}
 func (r *{{$sName}})Registry(engine *gin.Engine){
 	{{- range .Methods }}
-	engine.Handle("{{ .ReqMethod }}", "{{ .Path }}", receiver.{{ .MethodName }})
+	engine.Handle("{{ .ReqMethod }}", "{{ .Path }}", r.{{ .MethodName }})
 	{{- end }}
 }
 {{ range .Methods }}
