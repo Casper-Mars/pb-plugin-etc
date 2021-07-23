@@ -1,16 +1,15 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
-type UserApi struct {
+type UserHttpServer interface {
+	list(ctx *gin.Context)
 }
 
-func (receiver UserApi) Registry(engine *gin.Engine) {
-	engine.Handle("GET", "", receiver.list)
-}
-
-func (receiver UserApi) list(ctx *gin.Context) {
-
+func RegistryUserHttpServer(engine *gin.Engine, srv UserHttpServer) {
+	engine.Handle("GET", "", srv.list)
 }
 
 func server() {

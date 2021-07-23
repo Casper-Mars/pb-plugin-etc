@@ -7,16 +7,17 @@ import (
 
 var registryTemp = `
 {{$sName := .ServiceName}}
-func (r *{{$sName}})Registry(engine *gin.Engine){
+type {{$sName}}HttpServer interface {
 	{{- range .Methods }}
-	engine.Handle("{{ .ReqMethod }}", "{{ .Path }}", r.{{ .MethodName }})
+	{{.MethodName}}(ctx *gin.Context)
 	{{- end }}
 }
-{{ range .Methods }}
-func (r *{{$sName}}){{ .MethodName }}(ctx *gin.Context){
 
+func Registry{{$sName}}HttpServer(engine *gin.Engine, srv {{$sName}}HttpServer) {
+	{{- range .Methods }}
+	engine.Handle("{{ .ReqMethod }}", "{{ .Path }}", srv.{{ .MethodName }})
+	{{- end }}
 }
-{{- end }}
 `
 
 type ServiceInfo struct {
@@ -28,6 +29,7 @@ type HttpInfo struct {
 	MethodName string
 	ReqMethod  string
 	Path       string
+	HasBody    bool
 }
 
 func (receiver *ServiceInfo) Exec() string {

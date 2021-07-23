@@ -39,7 +39,7 @@ func generateContent(g *protogen.GeneratedFile, file *protogen.File) error {
 func generateService(g *protogen.GeneratedFile, service *protogen.Service) error {
 	methods := service.Methods
 	info := template.ServiceInfo{
-		ServiceName: fmt.Sprintf("%sServer", service.GoName),
+		ServiceName: fmt.Sprintf("%s", service.GoName),
 		Methods:     buildMethod(methods),
 	}
 	g.P(info.Exec())
