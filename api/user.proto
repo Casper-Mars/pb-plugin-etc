@@ -13,6 +13,17 @@ message UserInfo {
     string avatar = 4;
 }
 
+message UserListRequest {
+
+}
+
+message UserList {
+    repeated UserListItem list = 1;
+}
+
+message UserListItem {
+
+}
 
 message UserInfoRequest {
     uint64 id = 1;
@@ -24,4 +35,9 @@ service user {
             get: "/user/info"
         };
     };
+    rpc List(UserListRequest) returns(UserList) {
+        option (google.api.http) = {
+            get: "/user/list"
+        };
+    }
 }
