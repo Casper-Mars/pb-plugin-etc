@@ -4,7 +4,9 @@ package api;
 
 import "google/api/annotations.proto";
 
-option go_package = "./;out";
+
+// 定义包目录，其中";"后面定义的是额外指定的包名称
+option go_package = "./api/;out";
 
 message UserInfo {
     uint64 id = 1;
